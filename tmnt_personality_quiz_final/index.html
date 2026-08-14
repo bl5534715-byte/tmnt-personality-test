@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>تو شبیه کدام لاک‌پشت نینجا هستی؟</title>
+<meta name="description" content="آزمون شخصیت ۲۴ سؤالی برای پیدا کردن شخصیتی از میان لئوناردو، رافائل، دوناتلو و مایکل‌آنجلو که بیشترین شباهت را به تو دارد.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap');
+:root{
+ --bg:#050806;--panel:rgba(10,18,14,.78);--panel2:rgba(16,28,22,.88);
+ --text:#f1f7f3;--muted:#91a69c;--line:#20372c;--green:#67e69a;--green2:#22a85c;
+ --glow:rgba(71,224,132,.18);--shadow:0 30px 100px rgba(0,0,0,.55)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ margin:0;min-height:100vh;color:var(--text);font-family:"Vazirmatn",Tahoma,sans-serif;
+ background:
+ radial-gradient(circle at 78% 18%,rgba(41,151,91,.17),transparent 28%),
+ radial-gradient(circle at 18% 80%,rgba(27,104,71,.13),transparent 32%),
+ linear-gradient(145deg,#07100b 0%,#030604 55%,#07110c 100%);
+ overflow-x:hidden
+}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.055;
+ background-image:linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px),
+ linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px);background-size:70px 70px;
+ mask-image:linear-gradient(to bottom,black,transparent 75%)}
+body:after{content:"";position:fixed;inset:-20%;pointer-events:none;
+ background:radial-gradient(circle,transparent 48%,rgba(0,0,0,.62) 100%)}
+.wrap{width:min(980px,92%);margin:auto;padding:34px 0 70px;position:relative;z-index:1}
+.hero{min-height:82vh;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:30px 10px}
+.logo{font-weight:900;letter-spacing:.16em;font-size:12px;color:var(--green);margin-bottom:25px}
+.hero h1{font-size:clamp(42px,8vw,86px);line-height:1.08;letter-spacing:-3px;margin:0;text-shadow:0 0 45px rgba(76,231,139,.14)}
+.hero h1 span{display:block;color:#fff}
+.hero h1 em{font-style:normal;color:var(--green)}
+.hero p{max-width:680px;margin:24px auto 32px;color:#a6b9b0;font-size:17px;line-height:2}
+.meta{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 0 28px}
+.meta span{border:1px solid #274337;background:#0b1611aa;color:#9db3a8;padding:7px 12px;border-radius:99px;font-size:12px}
+.primary,.secondary{font-family:inherit;border-radius:14px;padding:14px 25px;cursor:pointer;transition:.22s}
+.primary{background:linear-gradient(135deg,#7af0a4,#27b866);color:#031008;font-weight:900;border:0;box-shadow:0 12px 45px rgba(47,190,104,.25)}
+.primary:hover{transform:translateY(-3px);box-shadow:0 16px 55px rgba(47,190,104,.36)}
+.secondary{background:#0d1914;color:#dbe9e2;border:1px solid #29483a}
+.secondary:hover{border-color:#4e876b;transform:translateY(-2px)}
+.panel{background:linear-gradient(145deg,rgba(13,25,19,.9),rgba(6,13,10,.86));border:1px solid #20392d;border-radius:28px;padding:34px;box-shadow:var(--shadow);backdrop-filter:blur(18px)}
+.hidden{display:none!important}
+.topline{display:flex;align-items:center;justify-content:space-between;gap:15px;color:#8da59a;font-size:13px;margin-bottom:12px}
+.counter{color:#d7e7df;font-weight:700}
+.progress{height:7px;background:#17271f;border-radius:99px;overflow:hidden;margin-bottom:42px}
+.bar{height:100%;background:linear-gradient(90deg,#269a58,#76eda2);width:0;transition:width .45s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 18px rgba(76,232,137,.35)}
+.question{font-size:clamp(23px,4vw,35px);line-height:1.9;margin:0 auto 28px;max-width:850px;font-weight:800;letter-spacing:-.6px}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.answer{position:relative;min-height:100px;background:linear-gradient(145deg,#112019,#0b1511);border:1px solid #294437;color:#edf7f1;text-align:right;padding:19px 20px;border-radius:18px;transition:.22s;line-height:1.9;font-family:inherit;cursor:pointer}
+.answer:before{content:"";position:absolute;inset:0;border-radius:18px;background:linear-gradient(120deg,transparent,rgba(103,230,154,.07),transparent);opacity:0;transition:.2s}
+.answer:hover{transform:translateY(-3px);border-color:#58c985;box-shadow:0 12px 35px rgba(0,0,0,.25)}
+.answer:hover:before{opacity:1}
+.answer .letter{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:10px;background:#183426;color:#7be8a2;margin-left:10px;font-weight:900;vertical-align:middle}
+.note{color:#70877c;font-size:12px;line-height:1.9;margin-top:20px;text-align:center}
+.loading{text-align:center;padding:100px 20px}
+.loader{width:66px;height:66px;border:4px solid #1b3026;border-top-color:#6ee99e;border-left-color:#2bb766;border-radius:50%;animation:spin .9s linear infinite;margin:0 auto 28px;box-shadow:0 0 40px rgba(65,222,128,.12)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading h2{font-size:27px;margin:0 0 8px}.loading p{margin:0;color:#849c91}
+.result{text-align:center;padding:45px 34px}
+.result .eyebrow{display:inline-block;color:#6ce99b;font-size:12px;font-weight:800;letter-spacing:.16em;border:1px solid #2b5a43;padding:8px 12px;border-radius:99px}
+.result h2{font-size:clamp(48px,9vw,92px);margin:15px 0 0;letter-spacing:-3px;line-height:1.05}
+.subtitle{font-size:18px;color:#8fa69b;margin-top:10px}
+.quote{max-width:720px;margin:28px auto;padding:23px 25px;background:linear-gradient(145deg,#102119,#0a1510);border:1px solid #284537;border-right:3px solid #68e99a;border-radius:18px;text-align:right;line-height:2.15;color:#d9e8e0}
+.report{text-align:right;margin-top:28px;display:grid;gap:14px}
+.report-card{background:rgba(11,22,16,.72);border:1px solid #223c30;border-radius:18px;padding:21px}
+.report-card h3{margin:0 0 12px;color:#70e99d;font-size:17px}.report-card p{line-height:2.05;color:#cbdad3;margin:0}
+.trait{margin:15px 0}.trait-head{display:flex;justify-content:space-between;color:#cfe0d8;font-size:13px}.traitbar{height:7px;background:#182a21;border-radius:99px;overflow:hidden;margin-top:7px}.traitbar i{display:block;height:100%;background:linear-gradient(90deg,#278e54,#73e89c);border-radius:99px}
+.actions{display:flex;justify-content:center;gap:11px;flex-wrap:wrap;margin-top:28px}
+.small{font-size:12px;color:#667d72;margin-top:18px}
+footer{text-align:center;color:#53685f;font-size:11px;margin-top:25px;line-height:1.9}
+@media(max-width:700px){
+ .wrap{width:94%;padding-top:16px}.hero{min-height:88vh}.hero h1{letter-spacing:-2px}.hero p{font-size:15px}
+ .panel{padding:22px 16px;border-radius:22px}.answers{grid-template-columns:1fr}.answer{min-height:auto}
+ .question{font-size:22px;line-height:1.85}.progress{margin-bottom:30px}.result{padding:30px 17px}
+}
+
+<style>
+.character-portrait{width:min(430px,82vw);aspect-ratio:1;object-fit:cover;border-radius:28px;border:1px solid #315543;box-shadow:0 25px 80px #0009,0 0 55px #4bdc8218;display:block;margin:24px auto 8px}
+.portrait-wrap{position:relative}.portrait-wrap:after{content:"";position:absolute;left:50%;bottom:-5px;transform:translateX(-50%);width:55%;height:28px;background:#35cd741f;filter:blur(22px);border-radius:50%;z-index:-1}
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;text-align:right;margin-top:14px}.score-summary{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:20px 0 4px}.score-chip{padding:8px 11px;border:1px solid #294437;background:#0b1711;border-radius:999px;color:#9bb0a5;font-size:12px}
+@media(max-width:700px){.report-grid{grid-template-columns:1fr}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<section id="start" class="hero">
+  <div class="logo">TMNT · PERSONALITY ARCHIVE</div><div class="badge">آزمون شخصیت · ۲۴ سؤال</div>
+  <h1>تو شبیه کدام<br><em>لاک‌پشت نینجا</em> هستی؟</h1>
+  <p>با انتخاب‌های واقعی و موقعیتی، الگوی رفتاری تو بررسی می‌شود و در پایان فقط <b>یک شخصیت</b> که بیشترین شباهت را به تو دارد معرفی خواهد شد.</p>
+  <button class="primary" onclick="startQuiz()">شروع آزمون</button>
+  <div class="meta"><span>۲۴ سؤال</span><span>حدود ۵ دقیقه</span><span>بدون پاسخ درست یا غلط</span></div>
+</section>
+
+<section id="quiz" class="panel hidden">
+  <div class="topline"><span id="counter" class="counter"></span><span>الگوی واقعی رفتارت را انتخاب کن</span></div>
+  <div class="progress"><div id="bar" class="bar"></div></div>
+  <h2 id="qtext" class="question"></h2>
+  <div id="answers" class="answers"></div>
+  <div class="note">بهترین جواب را انتخاب نکن؛ جوابی را انتخاب کن که در عمل بیشتر شبیه رفتار توست.</div>
+</section>
+
+<section id="loading" class="panel hidden loading">
+  <div class="loader"></div>
+  <h2>الگوی شخصیتت در حال تحلیل است...</h2>
+  <p class="note">تصمیم‌گیری · تعارض · روابط · فشار · ارزش‌ها</p>
+</section>
+
+<section id="result" class="panel hidden result">
+  <div class="eyebrow">نتیجه آزمون</div>
+  <h2 id="resultName"></h2>
+  <div id="resultTitle" class="subtitle"></div>
+  <div id="quote" class="quote"></div>
+  <div id="report" class="report"></div>
+  <div class="actions">
+    <button class="primary" onclick="copyResult()">کپی گزارش</button>
+    <button class="secondary" onclick="restart()">دوباره انجام بده</button>
+  </div>
+  <div id="copyStatus" class="small"></div>
+  <footer>این آزمون یک آزمون سرگرمی و شخصیت‌محور است و تشخیص روان‌شناختی یا بالینی محسوب نمی‌شود.</footer>
+</section>
+</div>
+
+<script>
+
+const deeper={
+leo:{core:"تو معمولاً در موقعیت‌های مبهم به سمت ساختار، مسئولیت و کنترل حرکت می‌کنی. برایت مهم است که بتوان روی تصمیم‌هایت حساب کرد و وقتی دیگران به تو تکیه می‌کنند، به‌سادگی عقب نمی‌کشی.",pressure:"تحت فشار ممکن است بیش از اندازه تلاش کنی همه‌چیز را کنترل کنی و اشتباه را شخصی‌تر از حد لازم تجربه کنی.",relations:"در روابط، وفاداری و قابل‌اعتماد بودن برایت مهم است. ممکن است احساسات خودت را دیرتر از مسئولیت‌هایت در اولویت قرار دهی.",decision:"در تصمیم‌های مهم معمولاً میان وظیفه و خواسته شخصی، کفه وظیفه برایت سنگین‌تر است.",growth:"رشد تو بیشتر از مسیر واگذاری مسئولیت، پذیرش خطا و اجازه دادن به خودت برای همیشه رهبر نبودن می‌گذرد."},
+raph:{core:"تو با شدت زندگی می‌کنی. وقتی چیزی برایت ارزشمند باشد، بی‌تفاوت ماندن دشوار است. استقلال، عدالت و محافظت از آدم‌های مهم زندگی‌ات می‌تواند بخش بزرگی از انگیزه‌ات باشد.",pressure:"در فشار، هیجان ممکن است سریع‌تر از تحلیل وارد عمل شود؛ مخصوصاً وقتی احساس بی‌احترامی، خیانت یا بی‌عدالتی کنی.",relations:"در روابط، وفاداری عمیق داری اما احتمالاً با آسیب‌پذیر نشان دادن خودت راحت نیستی و گاهی احساسات عمیق را پشت خشم یا شوخی پنهان می‌کنی.",decision:"تصمیم‌هایت در موضوعات مهم فقط محاسبه سرد نیستند؛ ارزش‌ها و حس درونی‌ات وزن زیادی دارند.",growth:"رشد تو در تبدیل شدت به قدرت کنترل‌شده است: مکث قبل از واکنش، بیان آسیب‌پذیری و تشخیص تفاوت میان دفاع کردن و جنگیدن."},
+don:{core:"ذهن تو دوست دارد قبل از واکنش، مسئله را بفهمد. کنجکاوی، تحلیل و پیدا کردن رابطه میان جزئیات برایت جذاب است و معمولاً ترجیح می‌دهی خودت به نتیجه برسی.",pressure:"وقتی فشار زیاد می‌شود، ممکن است بیشتر به ذهن خودت پناه ببری و با تحلیل کردن، از بخش احساسی مسئله فاصله بگیری.",relations:"در روابط، فهمیدن طرف مقابل برایت مهم است؛ با این حال ممکن است گاهی به جای تجربه کردن احساس، تلاش کنی آن را توضیح دهی.",decision:"در تصمیم‌های پیچیده، اطلاعات و سازوکار مسئله برایت اهمیت زیادی دارد و دوست داری انتخابت قابل دفاع باشد.",growth:"رشد تو در ایجاد تعادل میان فهمیدن و تجربه کردن است؛ بعضی مسائل زندگی با تحلیل کامل حل نمی‌شوند و نیاز به اقدام و ارتباط مستقیم دارند."},
+mikey:{core:"تو تمایل داری حتی در موقعیت‌های سنگین، بخشی از آزادی و سبک‌دلی خودت را حفظ کنی. ارتباط، شوخی و پیدا کردن روزنه امید می‌تواند منبع انعطاف‌پذیری تو باشد.",pressure:"در فشار ممکن است با شوخی یا سبک گرفتن مسئله از شدت ناراحتی فاصله بگیری؛ این ویژگی گاهی کمک‌کننده و گاهی تبدیل به اجتناب می‌شود.",relations:"در روابط، حضور و انرژی عاطفی برایت مهم است. احتمالاً دوست داری رابطه فقط مسئولیت نباشد و در آن صمیمیت و آزادی هم وجود داشته باشد.",decision:"در تصمیم‌ها معمولاً دوست داری انتخابی باقی بماند که آزادی عمل و امکان تجربه کردن را حفظ کند.",growth:"رشد تو در تشخیص لحظه‌ای است که دیگر نباید با شوخی از مسئله عبور کرد؛ جدی گرفتن درد و مسئولیت، آزادی تو را کمتر نمی‌کند."}
+};
+
+const chars = {
+  leo:{name:"لئوناردو",img:"leo.jpg",title:"رهبر",quote:"وقتی دیگران سردرگم می‌شوند، تو بیشتر از هر چیز به مسئولیت، نظم و درست انجام دادن کار فکر می‌کنی.",
+  traits:["مسئولیت‌پذیری","خویشتن‌داری","وفاداری","رهبری"],desc:"هسته شخصیتی تو به لئوناردو نزدیک است: وظیفه برایت فقط یک عنوان نیست؛ وقتی دیگران روی تو حساب می‌کنند، کنار کشیدن برایت دشوار می‌شود. معمولاً تلاش می‌کنی احساساتت را قبل از تصمیم‌گیری مدیریت کنی و حتی در موقعیت‌های سخت، مسیر قابل اتکاتری بسازی.",shadow:"نقطه آسیب‌پذیرت می‌تواند این باشد که بار زیادی را به تنهایی تحمل کنی و تصور کنی باید همیشه قوی و کنترل‌شده بمانی."},
+  raph:{name:"رافائل",img:"raph.jpg",title:"جنگجو",quote:"برای چیزهایی که واقعاً برایت اهمیت دارند، حاضر نیستی به‌سادگی کنار بروی.",
+  traits:["استقلال","شدت هیجانی","شجاعت","حفاظت از نزدیکان"],desc:"تو بیشتر به رافائل شبیه هستی: مستقیم، مستقل و شدید. وقتی چیزی برایت ارزش داشته باشد، واکنشت صرفاً ذهنی نیست؛ با تمام وجود وارد ماجرا می‌شوی. ممکن است با کنترل شدن یا بی‌عدالتی مشکل داشته باشی و گاهی احساست زودتر از منطق وارد عمل شوند.",shadow:"قدرتت در شدت و وفاداری است، اما همین شدت اگر کنترل نشود می‌تواند به واکنش عجولانه یا خشم تبدیل شود."},
+  don:{name:"دوناتلو",img:"don.jpg",title:"ذهن",quote:"قبل از اینکه به چیزی واکنش نشان بدهی، ذهنت می‌خواهد بفهمد دقیقاً با چه چیزی طرف است.",
+  traits:["کنجکاوی","تحلیل‌گری","حل مسئله","مشاهده‌گری"],desc:"تو بیش از همه به دوناتلو شباهت داری: کنجکاوی و فهمیدن برایت ارزش ذاتی دارند. در موقعیت‌های پیچیده معمولاً سعی می‌کنی مسئله را از هم باز کنی، الگوها را ببینی و بعد تصمیم بگیری. ترجیح می‌دهی پاسخ را بفهمی، نه اینکه فقط آن را حفظ کنی.",shadow:"گاهی نیاز به فهم کامل می‌تواند تو را وارد چرخه تحلیل بیش از حد کند و فاصله گرفتن از احساسات را آسان‌تر از روبه‌رو شدن با آنها کند."},
+  mikey:{name:"مایکل‌آنجلو",img:"mikey.jpg",title:"روح آزاد",quote:"برای تو زندگی فقط مجموعه‌ای از مشکلات نیست؛ هنوز باید جایی برای آزادی، شوخی و لذت باقی بماند.",
+  traits:["آزادی","خوش‌بینی","ارتباط اجتماعی","خودانگیختگی"],desc:"تو بیشتر از همه شبیه مایکل‌آنجلو هستی: خودانگیخته، اجتماعی و مقاوم در برابر سنگینی بیش از حد زندگی. احتمالاً می‌توانی در شرایط سخت راهی برای سبک‌تر کردن فضا پیدا کنی و دوست نداری هویتت را کاملاً زیر بار وظیفه و جدیت از دست بدهی.",shadow:"گاهی سبک گرفتن مسائل می‌تواند باعث شود چیزی را که نیاز به توجه جدی دارد دیرتر ببینی یا از روبه‌رو شدن مستقیم با ناراحتی فرار کنی."}
+};
+
+const qs = [
+["فرض کن گروهی که به آن تعلق داری در یک موقعیت دشوار قرار گرفته است. چند نفر منتظرند ببینند چه کسی تصمیم نهایی را می‌گیرد.",["سعی می‌کنم شرایط را جمع کنم و مسئولیت تصمیم را بپذیرم، حتی اگر مطمئن نباشم بهترین تصمیم چیست.","اگر فکر کنم تصمیم گروه اشتباه است، بدون تعارف مخالفت می‌کنم؛ حتی اگر باعث درگیری شود.","قبل از تصمیم‌گیری، اطلاعات موجود را بررسی می‌کنم تا بفهمم کدام انتخاب منطقی‌تر است.","سعی می‌کنم فضای سنگین را بشکنم تا اعضای گروه بتوانند بدون فشار بیش از حد تصمیم بگیرند."],"leo"],
+["یکی از نزدیکانت کاری انجام داده که عمیقاً ناراحتت کرده، اما خودش متوجه نشده که چقدر به تو آسیب زده است.",["ابتدا سعی می‌کنم خودم را کنترل کنم و بعد در زمان مناسبی درباره آن صحبت کنم.","همان موقع به او می‌گویم که رفتارش قابل قبول نبوده است.","قبل از واکنش، سعی می‌کنم بفهمم چرا چنین رفتاری کرده است.","ممکن است ابتدا با شوخی یا رفتار عادی برخورد کنم، اما بعداً درباره‌اش فکر کنم."],"raph"],
+["وقتی چیزی را نمی‌فهمی، کدام حالت بیشتر به تو نزدیک است؟",["تا جایی که لازم است یاد می‌گیرم تا بتوانم از آن در عمل استفاده کنم.","اگر موضوع واقعاً مهم باشد، آن‌قدر پیگیری می‌کنم تا بالاخره بفهممش.","ذهنم درگیر می‌شود و دوست دارم دقیقاً بفهمم «چرا» و «چطور» اتفاق افتاده است.","اگر بیش از حد پیچیده شود، ترجیح می‌دهم مدتی رهایش کنم و بعد دوباره سراغش بروم."],"don"],
+["فرض کن شخصی آشکارا قصد دارد تو را تحریک کند.",["اجازه نمی‌دهم خشمم تصمیم‌گیرنده باشد.","اگر بیش از حد جلو بیاید، احتمالاً پاسخ محکمی دریافت خواهد کرد.","بیشتر از خود تحریک، به این فکر می‌کنم که چرا دارد چنین کاری می‌کند.","احتمالاً با یک شوخی یا بی‌خیالی نشان می‌دهم که نمی‌تواند مرا کنترل کند."],"mikey"],
+["اگر قرار باشد یک ماه تمام روی پروژه‌ای سخت کار کنی و نتیجه‌اش برای افراد زیادی مهم باشد...",["حتی اگر خسته شوم، احساس می‌کنم باید کار را تا پایان درست انجام دهم.","اگر کسی در کار دخالت بی‌جا کند، خیلی زود کلافه می‌شوم.","سعی می‌کنم روش کار را بهینه کنم تا با کمترین اتلاف انرژی بهترین نتیجه را بگیرم.","اگر کار بیش از حد یکنواخت شود، دنبال راهی می‌گردم که دوباره برایم جذاب شود."],"leo"],
+["دوستت در تصمیم مهمی اشتباه می‌کند و تو تقریباً مطمئنی که نتیجه خوبی نخواهد داشت.",["سعی می‌کنم مسئولانه به او هشدار بدهم، حتی اگر شنیدن آن برایش خوشایند نباشد.","خیلی مستقیم می‌گویم که دارد اشتباه می‌کند.","برای او دلایل مشخص می‌آورم تا خودش بتواند مشکل تصمیمش را ببیند.","نظر خودم را می‌گویم، ولی در نهایت ترجیح می‌دهم خودش تجربه کند."],"don"],
+["وقتی بین چیزی که خودت می‌خواهی و چیزی که مسئولیتت از تو می‌خواهد تعارض ایجاد می‌شود...",["معمولاً مسئولیت را انتخاب می‌کنم، حتی اگر شخصاً هزینه‌اش را بدهم.","بستگی دارد؛ اگر احساس کنم این مسئولیت ناعادلانه است، ممکن است زیر بارش نروم.","سعی می‌کنم مسئله را منطقی بررسی کنم و راهی پیدا کنم که هر دو را تا حد ممکن حفظ کنم.","ترجیح می‌دهم راهی پیدا کنم که آزادی‌ام کاملاً از بین نرود."],"raph"],
+["وقتی از چیزی واقعاً می‌ترسی، معمولاً چه اتفاقی برایت می‌افتد؟",["ترس را کنار می‌گذارم و روی کاری که باید انجام شود تمرکز می‌کنم.","ممکن است ترس را به خشم یا واکنش شدید تبدیل کنم.","سعی می‌کنم بفهمم دقیقاً از چه چیزی می‌ترسم و آیا خطر واقعاً به همان اندازه جدی است.","سعی می‌کنم با شوخی یا سبک گرفتن موضوع، فشارش را کمتر کنم."],"don"],
+["اگر در یک جمع جدید قرار بگیری که هیچ‌کس را نمی‌شناسی...",["ابتدا فضا را بررسی می‌کنم و بعد وارد تعامل می‌شوم.","اگر کسی بیش از حد مصنوعی یا متظاهر باشد، احتمالاً خیلی زود متوجه می‌شوم و خوشم نمی‌آید.","بیشتر مشاهده می‌کنم تا بفهمم هرکس چه نوع شخصیتی دارد.","احتمالاً خودم شروع‌کننده صحبت یا شوخی می‌شوم."],"mikey"],
+["شخصی که دوستش داری در خطر است، اما برای کمک کردن ممکن است خودت آسیب ببینی.",["اگر بتوانم واقعاً کمک کنم، احتمالاً ریسک را می‌پذیرم.","تقریباً بدون فکر وارد عمل می‌شوم.","در چند ثانیه بررسی می‌کنم بهترین راه نجات چیست.","اگر راهی برای کمک وجود داشته باشد، سعی می‌کنم انجامش دهم؛ حتی اگر ترسناک باشد."],"raph"],
+["وقتی کسی از تو انتقاد می‌کند، اولین واکنش درونی‌ات بیشتر شبیه کدام است؟",["بررسی می‌کنم آیا انتقادش درست است و اگر هست، چه چیزی باید اصلاح شود.","اگر لحنش تحقیرآمیز باشد، خود انتقاد برایم اهمیتش را از دست می‌دهد.","سعی می‌کنم بفهمم دقیقاً بر چه اساسی چنین نظری داده است.","اگر انتقاد بیش از حد جدی باشد، ممکن است با شوخی از شدت آن کم کنم."],"don"],
+["اگر بفهمی کسی درباره تو تصور کاملاً اشتباهی دارد...",["اگر این تصور روی کار یا روابط مهم اثر بگذارد، سعی می‌کنم اصلاحش کنم.","اگر از آن شخص خوشم نیاید، چندان برایم مهم نیست چه فکری می‌کند.","برایم جالب است بفهمم چه چیزی باعث شده چنین برداشتی داشته باشد.","معمولاً آن‌قدر جدی‌اش نمی‌گیرم که بخواهم خودم را توضیح بدهم."],"mikey"],
+["در یک اختلاف شدید بین دو نفر از دوستانت، هر دو از تو می‌خواهند طرف آنها را بگیری.",["تلاش می‌کنم بدون جانبداری مسئله را مدیریت کنم.","اگر یکی از آنها واقعاً به دیگری ظلم کرده باشد، طرف فرد آسیب‌دیده را می‌گیرم.","ابتدا سعی می‌کنم بفهمم واقعاً چه اتفاقی افتاده است.","سعی می‌کنم تنش را کم کنم و نگذارم اختلاف از کنترل خارج شود."],"leo"],
+["اگر برنامه‌ای که برای مدت زیادی روی آن حساب کرده بودی ناگهان به هم بخورد...",["سریع برنامه جدیدی می‌سازم و ادامه می‌دهم.","احتمالاً اول از اینکه همه‌چیز خراب شده عصبانی می‌شوم.","بررسی می‌کنم چه چیزی باعث شکست برنامه شد و چه گزینه‌های دیگری وجود دارد.","می‌گویم «خب، حالا ببینیم از این وضعیت چه چیزی درمی‌آید.»"],"mikey"],
+["کدام جمله بیشتر به نگاهت به زندگی نزدیک است؟",["آزادی بدون مسئولیت می‌تواند به آشوب تبدیل شود.","اگر برای چیزی ارزش قائل باشی، باید حاضر باشی برایش بجنگی.","هرچه بیشتر بفهمی، بهتر می‌توانی انتخاب کنی.","اگر نتوانی از زندگی لذت ببری، حتی موفقیت هم معنای زیادی ندارد."],"don"],
+["اگر در کاری احساس کنی دیگران توانایی تو را دست‌کم گرفته‌اند...",["ترجیح می‌دهم با عملکردم نشان دهم اشتباه می‌کنند.","احتمالاً انگیزه می‌گیرم که به آنها ثابت کنم اشتباه کرده‌اند.","سعی می‌کنم بفهمم چرا چنین برداشتی درباره من دارند.","شاید کمی مسخره‌شان کنم و بعد کار خودم را انجام دهم."],"raph"],
+["وقتی تحت فشار شدید هستی، کدام رفتار به تو نزدیک‌تر است؟",["بیش از حد تلاش می‌کنم همه چیز را کنترل کنم.","زودتر از حالت عادی عصبانی می‌شوم.","بیشتر در ذهن خودم فرو می‌روم و شروع به تحلیل کردن می‌کنم.","بیشتر به شوخی، سرگرمی یا بودن کنار دیگران نیاز پیدا می‌کنم."],"raph"],
+["اگر مجبور باشی مدتی تنها کار کنی...",["اگر کار مهم باشد، مشکلی ندارم؛ هدفم مهم‌تر از تنهایی است.","اگر کسی مزاحمم نشود، حتی ممکن است ترجیحش بدهم.","تنهایی برای فکر کردن و تمرکز کردن می‌تواند مفید باشد.","بعد از مدتی حتماً دلم می‌خواهد با کسی ارتباط داشته باشم."],"mikey"],
+["اگر ببینی فردی ضعیف‌تر از تو مورد زورگویی قرار گرفته...",["سعی می‌کنم موقعیت را کنترل کنم و جلوی ادامه آن را بگیرم.","به احتمال زیاد مستقیماً وارد می‌شوم و جلوی فرد زورگو می‌ایستم.","اول شرایط را ارزیابی می‌کنم تا کمک کردن باعث بدتر شدن اوضاع نشود.","سعی می‌کنم فرد قربانی را از آن موقعیت خارج کنم و حمایتش کنم."],"raph"],
+["اگر کسی بگوید «تو زیادی جدی می‌گیری»، کدام واکنش بیشتر شبیه توست؟",["شاید درست بگوید؛ بعضی چیزها واقعاً ارزش جدی گرفتن دارند.","اگر موضوع برایم مهم باشد، نظر او اهمیتی ندارد.","می‌پرسم دقیقاً چه چیزی باعث شده چنین برداشتی داشته باشد.","احتمالاً می‌خندم و می‌گویم شاید حق با تو باشد!"],"mikey"],
+["اگر بتوانی یک توانایی خارق‌العاده داشته باشی، کدام را انتخاب می‌کنی؟",["توانایی هدایت و محافظت از دیگران در شرایط بحرانی.","قدرتی که باعث شود هیچ‌کس نتواند به کسانی که دوستشان دارم آسیب بزند.","ذهنی که بتواند هر مسئله پیچیده‌ای را حل کند.","توانایی اینکه در هر شرایطی شادی و امید را حفظ کنم."],"leo"],
+["اگر یکی از نزدیکانت از تو فاصله بگیرد، بدون اینکه دلیلش را توضیح دهد...",["سعی می‌کنم رابطه را حفظ کنم و بفهمم چه اتفاقی افتاده.","ناراحت و عصبانی می‌شوم، مخصوصاً اگر احساس کنم ناعادلانه بوده است.","مدام رفتارهای اخیرمان را بررسی می‌کنم تا علت را پیدا کنم.","به او فضا می‌دهم، هرچند احتمالاً سعی می‌کنم بعدها دوباره ارتباط برقرار کنم."],"raph"],
+["کدام ضعف بیشتر احتمال دارد برایت دردسر ایجاد کند?",["گاهی بیش از حد بار مسئولیت را روی دوش خودم می‌گذارم.","گاهی احساساتم شدیدتر از چیزی می‌شوند که بتوانم به‌راحتی کنترلشان کنم.","گاهی آن‌قدر فکر می‌کنم که عمل کردن را به تأخیر می‌اندازم.","گاهی چیزی را که باید جدی بگیرم، بیش از حد سبک می‌گیرم."],"don"],
+["تصور کن سال‌ها گذشته و به زندگی‌ات نگاه می‌کنی. دوست داری بیشتر به چه چیزی افتخار کنی؟",["اینکه وقتی دیگران به من نیاز داشتند، مسئولیت را رها نکردم.","اینکه وقتی چیزی یا کسی برایم ارزش داشت، از مبارزه برایش نترسیدم.","اینکه همیشه کنجکاو ماندم و سعی کردم جهان را عمیق‌تر بفهمم.","اینکه حتی در سخت‌ترین دوره‌ها اجازه ندادم زندگی تمام شادی‌اش را از من بگیرد."],"leo"]
+];
+
+// هر سؤال یک شخصیت هدف دارد؛ گزینه درست برای همان شخصیت در داده مشخص شده.
+// برای جلوگیری از قابل حدس بودن، ترتیب گزینه‌ها هنگام نمایش تصادفی می‌شود.
+let order=[], idx=0, scores={leo:0,raph:0,don:0,mikey:0}, answers=[];
+function shuffle(a){return a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1])}
+function startQuiz(){
+  document.getElementById("start").classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");
+  idx=0; answers=[]; scores={leo:0,raph:0,don:0,mikey:0};
+  order=qs.map((_,i)=>i); // ترتیب سؤال‌ها ثابت، ترتیب گزینه‌ها تصادفی
+  render();
+}
+function render(){ document.getElementById("quiz").animate([{opacity:.55,transform:"translateY(6px)"},{opacity:1,transform:"translateY(0)"}],{duration:280,easing:"ease-out"});
+  const q=qs[order[idx]];
+  document.getElementById("counter").textContent=`سؤال ${idx+1} از ${qs.length}`;
+  document.getElementById("bar").style.width=((idx)/qs.length*100)+"%";
+  document.getElementById("qtext").textContent=q[0];
+  const container=document.getElementById("answers"); container.innerHTML="";
+  const target=q[2];
+  const base=q[1].map((text,i)=>({text, i}));
+  // در هر سؤال گزینه‌ها جابه‌جا می‌شوند، ولی گزینه i امتیاز شخصیت هدف را دارد.
+  const shuffled=shuffle(base);
+  shuffled.forEach((a,n)=>{
+    const b=document.createElement("button"); b.className="answer";
+    b.innerHTML=`<span class="letter">${["الف","ب","ج","د"][n]}</span>${a.text}`;
+    b.onclick=()=>choose(target,a.i);
+    container.appendChild(b);
+  });
+}
+function choose(target, optionIndex){
+  // گزینه‌ای که از نظر طراحی با شخصیت هدف هم‌راستاتر است امتیاز بیشتری می‌گیرد.
+  // برای هر سؤال، یک انتخاب 3 امتیازی، دو انتخاب 1 امتیازی و یک انتخاب 0 امتیازی داریم.
+  // شخصیت هدف 3 می‌گیرد؛ دو شخصیت دیگر بر اساس نقش‌شان 1/1/0 می‌گیرند.
+  const patterns={
+    leo:[3,1,0,1], raph:[1,3,1,0], don:[1,0,3,1], mikey:[0,1,1,3]
+  };
+  const p=patterns[target];
+  scores.leo+= target==="leo"?p[optionIndex]:p[(optionIndex+1)%4];
+  scores.raph+= target==="raph"?p[optionIndex]:p[(optionIndex+2)%4];
+  scores.don+= target==="don"?p[optionIndex]:p[(optionIndex+3)%4];
+  scores.mikey+= target==="mikey"?p[optionIndex]:p[optionIndex];
+  answers.push({q:idx+1, target, optionIndex});
+  idx++;
+  if(idx<qs.length) render(); else finish();
+}
+function finish(){
+  document.getElementById("quiz").classList.add("hidden");
+  document.getElementById("loading").classList.remove("hidden");
+  setTimeout(showResult,1100);
+}
+function showResult(){
+  document.getElementById("loading").classList.add("hidden");
+  document.getElementById("result").classList.remove("hidden"); document.getElementById("result").animate([{opacity:0,transform:"translateY(18px)"},{opacity:1,transform:"translateY(0)"}],{duration:600,easing:"cubic-bezier(.2,.8,.2,1)"});
+  // برای نتیجه نهایی، امتیازها را مرتب می‌کنیم؛ فقط رتبه اول نمایش داده می‌شود.
+  const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const winner=sorted[0][0], c=chars[winner];
+  document.getElementById("resultName").textContent=c.name;
+  document.getElementById("resultTitle").textContent=`بیشترین شباهت تو به «${c.title}» است`;
+  document.getElementById("quote").insertAdjacentHTML("beforebegin",`<div class="portrait-wrap"><img class="character-portrait" src="${c.img}" alt="${c.name}"></div>`);
+  document.getElementById("quote").textContent=c.quote;
+  const max=Math.max(...Object.values(scores));
+  const d=deeper[winner];
+  const topScore=sorted[0][1], secondScore=sorted[1][1];
+  const confidence=Math.max(58,Math.min(97,Math.round(62+(topScore-secondScore)*0.7)));
+  let report=`<div class="report-card"><h3>هسته شخصیت</h3><p>${d.core}</p></div>`;
+  report+=`<div class="report-grid"><div class="report-card"><h3>وقتی تحت فشار هستی</h3><p>${d.pressure}</p></div><div class="report-card"><h3>در روابط</h3><p>${d.relations}</p></div><div class="report-card"><h3>شیوه تصمیم‌گیری</h3><p>${d.decision}</p></div><div class="report-card"><h3>مسیر رشد</h3><p>${d.growth}</p></div></div>`;
+  report+=`<div class="report-card"><h3>ویژگی‌های برجسته</h3>${c.traits.map((t,i)=>`<div class="trait"><div class="trait-head"><span>${t}</span><span>${[92,84,76,68][i]}٪</span></div><div class="traitbar"><i style="width:${[92,84,76,68][i]}%"></i></div></div>`).join("")}</div>`;
+  report+=`<div class="report-card"><h3>نقطه آسیب‌پذیر</h3><p>${c.shadow}</p></div>`;
+  report+=`<div class="report-card"><h3>میزان اطمینان نتیجه</h3><p>پاسخ‌های تو بیشترین هم‌خوانی را با ${c.name} نشان داده‌اند.</p><div class="traitbar" style="margin-top:14px"><i style="width:${confidence}%"></i></div><div class="small" style="text-align:right">هم‌خوانی کلی: ${confidence}٪</div></div>`;
+  report+=`<div class="score-summary"><span class="score-chip">نتیجه نهایی: ${c.name}</span><span class="score-chip">تحلیل ۲۴ پاسخ</span></div>`;
+  document.getElementById("report").innerHTML=report;
+  window.finalText=`نتیجه آزمون: ${c.name} — ${c.title}\n\n${c.quote}\n\n${c.desc}\n\nنقطه آسیب‌پذیر: ${c.shadow}`;
+}
+function copyResult(){
+  navigator.clipboard?.writeText(window.finalText||"").then(()=>document.getElementById("copyStatus").textContent="گزارش در کلیپ‌بورد کپی شد.");
+}
+function restart(){
+  document.getElementById("result").classList.add("hidden");
+  document.querySelectorAll(".portrait-wrap").forEach(x=>x.remove());
+  document.getElementById("start").classList.remove("hidden");
+}
+</script>
+</body>
+</html>
